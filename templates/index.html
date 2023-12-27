@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomical object image classification</title>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <ul class="nav" style=" margin-bottom: 300px; color: aliceblue;">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="source_code.html">SOURCE CODE</a></li>
+        <li><a href="presentation.html">PRESENTATION</a></li>
+        <li><a href="Database.html">DATASET</a></li>
+    </ul>
+
+    <style>
+        body
+        {
+            background-size: 100%;
+            background-color: black;
+           /* Background color */
+            background-image: radial-gradient(white 1%, transparent 1%);
+            background-size: 20px 20px; /* Adjust the size of dots */
+        }
+
+        .nav {
+            list-style-type: none;
+            margin: 0;
+            padding-top: 100px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            width: 100%;
+        }
+
+        /* Style for individual list items in the navbar */
+        .nav li {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+            padding: 0 35px;
+        }
+
+        /* Style for the links in the navbar */
+        .nav li a {
+            text-decoration: none;
+            color: #fff;
+            border: size 2.5px;;
+            transition: border-radius 0.3s, border-color 0.3s;
+        }
+
+
+        /* Change the link color when hovered over */
+        .nav li a:hover {
+            border-radius: 8px;
+            border-color: #fff;
+        }
+        .h1
+        {
+            color: aliceblue;
+            background-repeat: none;
+        }
+        .btn-primary {
+            color: aliceblue;
+            border-color:aliceblue;
+            background: transparent;
+            border-radius: 8px;
+            border-width: 2.5px;
+            margin:20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: black;
+            border-color: white;
+        }
+
+    #classificationResult {
+        color: white;
+    }
+
+    </style>
+</head>
+<body background="C:\Users\AAHILAHMED\OneDrive\Desktop\pexels-kai-pilger-1341279.jpg" >
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6" style="text-align: center;">
+                <h1 style="color: aliceblue; text-align: center; padding: 20px;">Image Classifier</h1>
+
+                <div class="form-group" style="margin: 10px;">
+                    <input type="text" class="form-control" id="imagePath" placeholder="Enter image path">
+                </div>
+
+                <div style="text-align: center;"> <!-- Center the button -->
+                    <button class="btn btn-primary" onclick="classifyImage()" style="display: inline-block;">Classify</button>
+                </div>
+
+                <div class="mt-3" style="display:flex, justify-content:center;">
+                    <h3 style="color: aliceblue; text-align: center;">Result:</h3>
+                    <p id="classificationResult" style="color:white; margin-left:20px; margin-top:6px;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<script>
+    function classifyImage() {
+        const imagePath = document.getElementById('imagePath').value;
+        const resultElement = document.getElementById('classificationResult');
+
+        // Call the Flask endpoint to classify the image
+        fetch('/classify_image', {
+            method: 'POST',
+            body: new URLSearchParams({ imagePath: imagePath }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                const classificationResult = data.result;
+                resultElement.textContent = `Classified as: ${classificationResult}`;
+            })
+            .catch(error => {
+                console.error('Classification error:', error);
+                resultElement.textContent = 'Error during classification';
+            });
+    }
+</script>
+
+
+    <!-- Add Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

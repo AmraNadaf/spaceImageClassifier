@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <ul class="nav" style=" margin-bottom: 300px; color: aliceblue;">
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="source_code.html">SOURCE CODE</a></li>
+        <li><a href="presentation.html">PRESENTATION</a></li>
+        <li><a href="Database.html">DATASET</a></li>
+    </ul>
+        <style>
+        body
+        {
+            background-size: 100%;
+            background-color: black;
+           /* Background color */
+            background-image: radial-gradient(white 1%, transparent 1%);
+            background-size: 20px 20px; /* Adjust the size of dots */
+            margin-bottom: 20px !important;
+        }
+
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 100px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+    margin-bottom: 20px; /* Adjust this value to control the distance between the navbar and content */
+}
+
+
+
+        /* Style for individual list items in the navbar */
+        .nav li {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #fff;
+            padding: 0 35px;
+        }
+
+        /* Style for the links in the navbar */
+        .nav li a {
+            text-decoration: none;
+            color: #fff;
+            border: size 2.5px;;
+            transition: border-radius 0.3s, border-color 0.3s;
+        }
+
+
+        /* Change the link color when hovered over */
+        .nav li a:hover {
+            border-radius: 8px;
+            border-color: #fff;
+        }
+        table {
+            margin-top: -150px;
+            border-collapse: collapse;
+            width: 100%;
+            border-radius:10px;
+        }
+
+        table, th, td {
+                border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+            h1
+            {
+            /*margin-top:-100px;*/
+            color:white:white;
+            text-align:center;
+            }
+        </style>
+</head>
+<body>
+    <h1>Image Data</h1>
+    <table style="color:white;">
+        <tr>
+            <th style="color:white;">Image Path</th>
+            <th style="color:white;">Classification</th>
+        </tr>
+        {% for row in image_data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
